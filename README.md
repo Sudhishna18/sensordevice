@@ -58,10 +58,121 @@ Registeration Number :
 
 </LinearLayout>
 ```
+```
+package com.example.sensorlist;
 
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+    private SensorManager sensorManager;
+    private ListView listViewSensors;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        listViewSensors = findViewById(R.id.listViewSensors);
+
+        // Get the SensorManager service
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        // Get the list of all available sensors
+        List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
+
+        // Prepare data for the ListView
+        ArrayList<String> sensorNames = new ArrayList<>();
+
+        for (Sensor sensor : sensorList) {
+            String sensorInfo = sensor.getName() + " - "
+                    + getSensorTypeName(sensor.getType());
+
+            sensorNames.add(sensorInfo);
+        }
+
+        // If no sensors found (should not happen on real device)
+        if (sensorNames.isEmpty()) {
+            sensorNames.add("No sensors found");
+        }
+
+        // Display the list using ArrayAdapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                sensorNames
+        );
+
+        listViewSensors.setAdapter(adapter);
+    }
+
+    // Helper method to get a readable sensor type name
+    private String getSensorTypeName(int sensorType) {
+        switch (sensorType) {
+
+            case Sensor.TYPE_ACCELEROMETER:
+                return "Accelerometer";
+
+            case Sensor.TYPE_AMBIENT_TEMPERATURE:
+                return "Ambient Temperature";
+
+            case Sensor.TYPE_GAME_ROTATION_VECTOR:
+                return "Game Rotation Vector";
+
+            case Sensor.TYPE_GYROSCOPE:
+                return "Gyroscope";
+
+            case Sensor.TYPE_LIGHT:
+                return "Light";
+
+            case Sensor.TYPE_MAGNETIC_FIELD:
+                return "Magnetic Field";
+
+            case Sensor.TYPE_PRESSURE:
+                return "Pressure";
+
+            case Sensor.TYPE_PROXIMITY:
+                return "Proximity";
+
+            case Sensor.TYPE_RELATIVE_HUMIDITY:
+                return "Relative Humidity";
+
+            case Sensor.TYPE_ROTATION_VECTOR:
+                return "Rotation Vector";
+
+            case Sensor.TYPE_STEP_COUNTER:
+                return "Step Counter";
+
+            case Sensor.TYPE_STEP_DETECTOR:
+                return "Step Detector";
+
+            case Sensor.TYPE_GRAVITY:
+                return "Gravity";
+
+            case Sensor.TYPE_LINEAR_ACCELERATION:
+                return "Linear Acceleration";
+
+            case Sensor.TYPE_ORIENTATION:
+                return "Orientation (deprecated)";
+
+            default:
+                return "Sensor type " + sensorType;
+        }
+    }
+}
+```
 
 ## OUTPUT
+<img width="1917" height="1126" alt="Screenshot 2026-11-27 085404" src="https://github.com/user-attachments/assets/cc816006-2ecf-4702-86a7-4c06c527695c" />
 
 
 
