@@ -29,10 +29,12 @@ Step 7: Save and run the application.
 ```
 /*
 Program to print the avaliable sensor in android mobile devices”.
-Developed by:
-Registeration Number :
+Developed by: Sudhishna P
+Registeration Number : 212224040336
 */
 ```
+## activity_main.xml:
+
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 
@@ -58,7 +60,10 @@ Registeration Number :
 
 </LinearLayout>
 ```
-```
+
+## MainActivity_java:
+
+```JAVA
 package com.example.sensorlist;
 
 import android.hardware.Sensor;
